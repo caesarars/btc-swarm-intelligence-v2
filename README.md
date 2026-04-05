@@ -72,3 +72,4 @@ Swarm mengirim sinyal ke btc-trading-bot via REST:
   }
 }
 ```
+# btc-swarm-intelligence-v2.
