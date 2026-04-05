@@ -1,0 +1,23 @@
+# Backtesting
+vectorbt>=0.26.0
+pandas>=2.2.0
+numpy>=1.26.0
+scipy>=1.13.0
+
+# Data fetching
+python-binance>=1.0.19
+requests>=2.31.0
+websockets>=12.0
+
+# Technical indicators
+pandas-ta>=0.3.14b
+
+# Visualization & analysis
+matplotlib>=3.8.0
+plotly>=5.20.0
+jupyter>=1.0.0
+ipykernel>=6.29.0
+
+# Utils
+python-dotenv>=1.0.0
+loguru>=0.7.2

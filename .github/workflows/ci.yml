@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  typescript:
+    name: TypeScript build & lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: ruflo/pnpm-lock.yaml
+
+      - name: Install deps
+        run: cd ruflo && pnpm install --frozen-lockfile
+
+      - name: Build
+        run: cd ruflo && pnpm build
+
+  python:
+    name: Python lint & test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install deps
+        run: uv pip install -r requirements.txt --system
+
+      - name: Lint
+        run: uv run python -m py_compile data-agents/btc_fetcher.py data-agents/polymarket_fetcher.py backtesting/strategies/composite_strategy.py
+
+  docker:
+    name: Docker build check
+    runs-on: ubuntu-latest
+    needs: [typescript]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -f docker/Dockerfile.swarm -t btc-swarm:ci .

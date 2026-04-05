@@ -1,0 +1,21 @@
+FROM node:20-alpine AS base
+WORKDIR /app
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Copy ruflo package files
+COPY ruflo/package.json ruflo/pnpm-lock.yaml* ./ruflo/
+COPY bridge/ ./bridge/
+
+# Install dependencies
+RUN cd ruflo && pnpm install --frozen-lockfile
+
+# Copy source
+COPY ruflo/ ./ruflo/
+COPY .env.example ./.env.example
+
+# Build TypeScript
+RUN cd ruflo && pnpm build
+
+CMD ["node", "ruflo/dist/agents/orchestrator.js"]

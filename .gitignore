@@ -1,0 +1,34 @@
+# env
+.env
+.env.local
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+backtesting/data/raw/
+backtesting/results/*.json
+
+# Node / TypeScript
+node_modules/
+ruflo/node_modules/
+bridge/node_modules/
+dist/
+.ruflo/
+
+# MacOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+logs/
+*.log
+
+# SQLite swarm memory
+.swarm/
+
+logs/

@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  swarm:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.swarm
+    container_name: btc-swarm
+    restart: unless-stopped
+    environment:
+      - ZAI_API_KEY=${ZAI_API_KEY}
+      - ZAI_MODEL=${ZAI_MODEL:-glm-4.5-air}
+      - BOT_API_URL=${BOT_API_URL}
+      - BOT_API_SECRET=${BOT_API_SECRET}
+      - BINANCE_API_KEY=${BINANCE_API_KEY}
+      - BINANCE_API_SECRET=${BINANCE_API_SECRET}
+      - SWARM_WINDOW=${SWARM_WINDOW:-15m}
+      - SWARM_CONFIDENCE_THRESHOLD=${SWARM_CONFIDENCE_THRESHOLD:-0.70}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    volumes:
+      - swarm-memory:/app/.swarm
+      - ./backtesting/results:/app/results:ro
+    networks:
+      - trading-net
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+networks:
+  trading-net:
+    external: true   # shared dengan btc-trading-bot container
+
+volumes:
+  swarm-memory:

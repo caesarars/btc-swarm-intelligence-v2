@@ -1,0 +1,26 @@
+{
+  "name": "btc-swarm-ruflo",
+  "version": "0.1.0",
+  "description": "Ruflo orchestrator untuk BTC trading swarm — powered by Z.AI GLM",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch agents/orchestrator.ts",
+    "start": "node dist/agents/orchestrator.js",
+    "build": "tsc",
+    "ruflo:init": "npx ruflo@latest init",
+    "ruflo:mcp": "npx ruflo@latest mcp start",
+    "swarm:spawn": "npx ruflo@latest hive-mind spawn",
+    "swarm:status": "npx ruflo@latest hive-mind status"
+  },
+  "dependencies": {
+    "openai": "^4.52.0",
+    "dotenv": "^16.4.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.0",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.5"
+  }
+}
