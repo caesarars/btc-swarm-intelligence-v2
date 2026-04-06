@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch agents/orchestrator.ts",
+    "server": "tsx server.ts",
+    "server:prod": "node dist/server.js",
     "start": "node dist/agents/orchestrator.js",
     "build": "tsc",
     "ruflo:init": "npx ruflo@latest init",
